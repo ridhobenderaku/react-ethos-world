@@ -1,0 +1,100 @@
+.table-meeting {
+  cursor: pointer;
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  overflow: auto;
+}
+.table-meeting .content-hover:hover {
+  background-color: rgba(0, 0, 0, 0.075) !important;
+}
+
+.table-meeting th {
+  white-space: nowrap;
+  color: #619a3f;
+  cursor: auto;
+  overflow: hidden;
+}
+
+.header:hover {
+  background-color: white !important;
+}
+
+.table-meeting td {
+  overflow: hidden;
+}
+
+.table-meeting .judul {
+  width: 35%;
+}
+
+.table-meeting .anggota {
+  width: 250px;
+}
+.table-meeting .address {
+  width: 35%;
+}
+
+.table-meeting .status {
+  width: 15ch;
+}
+
+.table-meeting .status p {
+}
+.table-meeting .date {
+  width: 400px;
+}
+
+@media (max-width: 575.98px) {
+  .table-meeting {
+    width: fit-content;
+    table-layout: auto;
+    display: inherit;
+  }
+
+  .table-meeting .judul {
+    max-width: 15ch;
+  }
+
+  .table-meeting .address {
+    max-width: 15ch;
+  }
+}
+
+@media (min-width: 575.99px) and (max-width: 767.98px) {
+  .table-meeting {
+    width: fit-content;
+    table-layout: auto;
+    display: inherit;
+  }
+
+  .table-meeting .judul {
+    max-width: 20ch;
+  }
+
+  .table-meeting .address {
+    max-width: 20ch;
+  }
+}
+
+@media (min-width: 767.99px) and (max-width: 991.98px) {
+  .table-meeting {
+    width: fit-content;
+    table-layout: auto;
+    display: inherit;
+  }
+
+  .table-meeting .judul {
+    max-width: 25ch;
+  }
+
+  .table-meeting .address {
+    max-width: 25ch;
+  }
+}
+
+@media (min-width: 991.99px) and (max-width: 1199.98px) {
+}
+
+@media (min-width: 1199.99px) and (max-width: 1399.98px) {
+}

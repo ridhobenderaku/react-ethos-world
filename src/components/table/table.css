@@ -1,0 +1,13 @@
+.table-custom .title {
+  color: #619a3f;
+  cursor: auto;
+}
+
+.table-custom .title:hover {
+  background-color: inherit !important;
+  color: #619a3f !important;
+}
+
+.table-custom tr {
+  cursor: pointer;
+}

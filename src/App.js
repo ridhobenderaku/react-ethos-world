@@ -1,43 +1,43 @@
+import React, { useContext, useEffect } from "react";
+import { io } from "socket.io-client";
+import Header from "./components/header";
+import Sidebar from "./components/sidebar";
+import Footer from "./components/footer";
+import CeoRouter from "./routes/ceoRouter";
+import { ReactContext } from "../src/context/AuthProvider";
+import PegawaiRouter from "./routes/pegawaiRouter";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "bootstrap-daterangepicker/daterangepicker.css";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { getUsers } from "./api/pesanApi";
 
-import Header from './components/Header';
-
-import memo from './Memo/index';
-import ide from './Ide/index';
-import project from './project/index'
-import agenda from './agenda/index';
-import aktifitas from './aktifitas/index';
-import meeting from './meeting/index';
-import Sidebar  from './components/Sidebar';
-import Footer from './components/Footer';
-import {Home} from './pages/Home';
-import Login from './login/login';
-
-import { Routes, Route } from 'react-router-dom';
-
+export const socket = io(process.env.REACT_APP_API_PROD_VIEW);
 function App() {
+  const { user } = useContext(ReactContext);
+
+  const checkUser = () => {
+    if (user.levele === "Admin") return <CeoRouter />;
+    else return <PegawaiRouter />;
+  };
+
+  useEffect(() => {
+    getUsers().then((res) => {
+      if (res) {
+        sessionStorage.setItem("dataUsers", btoa(JSON.stringify(res)));
+      }
+    });
+  }, []);
+
   return (
     <>
-    
-    <Header/>
-        
-         <Routes>
-         <Route exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
-         <Route  path="/login" Component={Login} />
-          <Route exact path="/" element={<Home />} />
-          <Route  path="/Ide" Component={ide} />
-          <Route  path="/project" Component={project} />
-          <Route  path="/agenda" Component={agenda} />
-          <Route  path="/aktifitas" Component={aktifitas} />
-          <Route  path="/meeting" Component={meeting} />
-          <Route  path="/memo" Component={memo} />
-         
-       </Routes>
-       <Sidebar/>
-       <Footer /> 
-
-       </>
+      <Header />
+      {user && checkUser()}
+      <Sidebar />
+      <Footer />
+    </>
   );
 }
-  // }
+// }
 
 export default App;

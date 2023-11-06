@@ -1,0 +1,42 @@
+.fc-toolbar-chunk .fc-today-button {
+  background: #87bd3d !important;
+  border: none !important;
+}
+
+.fc-toolbar-chunk .fc-button-group .fc-prev-button {
+  background: #619a3f !important;
+  border: none !important;
+}
+
+.fc-toolbar-chunk .fc-button-group .fc-prev-button,
+.fc-toolbar-chunk .fc-button-group .fc-next-button {
+  background: #619a3f !important;
+  border: none !important;
+}
+.fc-toolbar-chunk .fc-button-group .fc-prev-button:hover,
+.fc-toolbar-chunk .fc-button-group .fc-next-button:hover {
+  border: none !important;
+  background: #87bd3d !important;
+}
+.fc-toolbar-chunk .fc-button-active {
+  border: none !important;
+  background: #87bd3d !important;
+}
+
+.fc-toolbar-chunk .fc-timeGridWeek-button,
+.fc-toolbar-chunk .fc-timeGridDay-button,
+.fc-toolbar-chunk .fc-dayGridMonth-button {
+  background: #619a3f;
+  border: none !important;
+}
+
+.fc-toolbar-chunk .fc-timeGridWeek-button:hover,
+.fc-toolbar-chunk .fc-timeGridDay-button:hover,
+.fc-toolbar-chunk .fc-dayGridMonth-button:hover {
+  background: #87bd3d;
+  border: none !important;
+}
+
+.fc-toolbar-chunk h2 {
+  color: #619a3f !important;
+}

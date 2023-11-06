@@ -1,0 +1,146 @@
+.table-ide {
+  cursor: pointer;
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  overflow: auto;
+}
+
+.table-ide .header:hover {
+  background-color: white !important;
+}
+
+.content-hover:hover {
+  background-color: rgba(0, 0, 0, 0.075) !important;
+}
+
+.table-ide th {
+  white-space: nowrap;
+  color: #619a3f;
+}
+
+.table-ide td {
+  overflow: hidden;
+}
+
+.table-ide .default {
+  width: 50px;
+  opacity: 0;
+}
+
+.table-ide .star {
+  width: 50px;
+}
+.table-ide .checkbox {
+  width: 50px;
+}
+
+.table-ide .author {
+  max-width: 35%;
+}
+
+.table-ide .comment {
+  width: 50px;
+  font-size: 30px;
+  color: #ff9e1d;
+}
+.table-ide .comment i {
+  position: relative;
+  top: -4px;
+}
+.table-ide .comment i::after {
+  content: attr(count);
+  color: black;
+  position: absolute;
+  margin-top: 3px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  text-align: center;
+  font-size: 16px;
+}
+
+.table-ide .date {
+  width: 150px;
+  min-width: 13ch;
+}
+.table-ide .share {
+  width: 50px;
+}
+
+.table-ide .judul {
+  max-width: 35%;
+}
+.table-ide .judul p {
+  max-width: 100%;
+  max-height: 5ch;
+  margin: 0;
+}
+
+.table-ide .judul-sampah {
+  max-width: 60%;
+  width: 60%;
+}
+.table-ide .judul-sampah p {
+  max-width: 100%;
+  max-height: 5ch;
+  margin: 0;
+}
+.table-ide .description {
+  max-width: 35%;
+}
+.table-ide .description div {
+  max-width: 100%;
+  max-height: 5ch;
+}
+
+.table-ide .description div * {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table-ide .description p {
+  margin: 0;
+}
+
+@media (max-width: 575.98px) {
+  .table-ide {
+    width: fit-content;
+    table-layout: auto;
+    display: inherit;
+  }
+
+  .table-ide .judul {
+    max-width: 10ch;
+  }
+  .table-ide .judul p {
+    max-width: 10ch;
+  }
+
+  .table-ide .judul-sampah {
+    max-width: 10ch;
+  }
+  .table-ide .judul-sampah p {
+    max-width: 10ch;
+  }
+  .table-ide .description {
+    max-width: 10ch;
+  }
+  .table-ide .description div {
+    max-width: 10ch;
+  }
+}
+
+@media (min-width: 575.99px) and (max-width: 767.98px) {
+}
+
+@media (min-width: 767.99px) and (max-width: 991.98px) {
+}
+
+@media (min-width: 991.99px) and (max-width: 1199.98px) {
+}
+
+@media (min-width: 1199.99px) and (max-width: 1399.98px) {
+}

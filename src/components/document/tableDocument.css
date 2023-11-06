@@ -1,0 +1,106 @@
+.table-document {
+  cursor: pointer;
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  overflow: auto;
+}
+.table-document .content-hover:hover {
+  background-color: rgba(0, 0, 0, 0.075) !important;
+}
+
+.table-document th {
+  white-space: nowrap;
+  color: #619a3f;
+  cursor: auto;
+  overflow: hidden;
+}
+
+.header:hover {
+  background-color: white !important;
+}
+
+.header {
+  background-color: white !important;
+}
+
+.table-document td {
+  overflow: hidden;
+}
+
+.table-document .no {
+  width: 50px;
+}
+
+.table-document .category {
+  width: 150px;
+}
+
+.table-document .filename {
+  width: 35%;
+}
+.table-document .subject {
+  width: 35%;
+}
+.table-document .created {
+  width: 150px;
+}
+.table-document .username {
+  width: 20%;
+}
+.table-document .action {
+  width: 100px;
+}
+
+@media (max-width: 575.98px) {
+  .table-document {
+    width: fit-content;
+    table-layout: auto;
+    display: inherit;
+  }
+
+  .table-document .filename {
+    width: 35%;
+  }
+  .table-document .subject {
+    width: 35%;
+  }
+}
+
+@media (min-width: 575.99px) and (max-width: 767.98px) {
+  .table-document {
+    width: fit-content;
+    table-layout: auto;
+    display: inherit;
+  }
+
+  .table-document .judul {
+    max-width: 20ch;
+  }
+
+  .table-document .address {
+    max-width: 20ch;
+  }
+}
+
+@media (min-width: 767.99px) and (max-width: 991.98px) {
+  .table-document {
+    width: fit-content;
+    table-layout: auto;
+    display: inherit;
+  }
+
+  .table-document .judul {
+    max-width: 25ch;
+  }
+
+  .table-document .address {
+    max-width: 25ch;
+  }
+}
+
+@media (min-width: 991.99px) and (max-width: 1199.98px) {
+}
+
+@media (min-width: 1199.99px) and (max-width: 1399.98px) {
+}

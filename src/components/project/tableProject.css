@@ -1,0 +1,94 @@
+.table-project {
+  cursor: pointer;
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  overflow: auto;
+}
+.table-project .content-hover:hover {
+  background-color: rgba(0, 0, 0, 0.075) !important;
+}
+
+.table-project th {
+  white-space: nowrap;
+  color: #619a3f;
+  cursor: auto;
+  overflow: hidden;
+}
+
+.header:hover {
+  background-color: white !important;
+}
+
+.table-project td {
+  overflow: hidden;
+}
+
+.table-project .judul {
+  width: 60%;
+  min-width: 60%;
+}
+
+.table-project .anggota {
+  width: 250px;
+  min-width: 250px;
+}
+.table-project .progges {
+  width: 200px;
+  min-width: 200px;
+}
+
+.table-project .status {
+  width: 150px;
+  min-width: 150px;
+}
+
+.table-project .date {
+  width: 300px;
+  min-width: 300px;
+}
+
+@media (max-width: 575.98px) {
+  .table-project {
+    width: fit-content;
+    table-layout: auto;
+    display: inherit;
+  }
+
+  .table-project .judul {
+    max-width: 15ch;
+    width: 15ch;
+  }
+}
+
+@media (min-width: 575.99px) and (max-width: 767.98px) {
+  .table-project {
+    width: fit-content;
+    table-layout: auto;
+    display: inherit;
+  }
+
+  .table-project .judul {
+    max-width: 20ch;
+    width: 20ch;
+  }
+}
+
+@media (min-width: 767.99px) and (max-width: 991.98px) {
+  .table-project {
+    width: fit-content;
+    table-layout: auto;
+    display: inherit;
+  }
+
+  .table-project .judul {
+    width: 25ch;
+    max-width: 25ch;
+  }
+}
+
+@media (min-width: 991.99px) and (max-width: 1199.98px) {
+}
+
+@media (min-width: 1199.99px) and (max-width: 1399.98px) {
+}

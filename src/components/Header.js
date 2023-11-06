@@ -1,121 +1,151 @@
-import React from 'react';
-import { NavLink, Link } from "react-router-dom";
-import menuData from "../data/MenuData";
+import React, { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
+
+import menuData from "../data/menuData";
+import { socket } from "../App";
+import { ReactContext } from "../context/AuthProvider";
+
 function Header() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [redirectOut, setRedirectOut] = useState(false);
+  const { user, notifikasi, setNotifikasi } = useContext(ReactContext);
+  const [activeTab, setActiveTab] = useState("Home");
+
+  const onLogout = (event) => {
+    event.preventDefault();
+
+    sessionStorage.removeItem("auth");
+    window.location.href = "/";
+  };
+
+  if (redirectOut === true) {
+    window.location.href = "/";
+  }
+  useEffect(() => {
+    if (location.pathname.includes("/ide")) setActiveTab("Ide");
+    else if (location.pathname.includes("/project")) setActiveTab("Project");
+    else if (location.pathname.includes("/agenda")) setActiveTab("Agenda");
+    else if (location.pathname.includes("/meeting")) setActiveTab("Meeting");
+    else if (location.pathname.includes("/memo")) setActiveTab("Memo");
+    else if (location.pathname.includes("/pesan")) setActiveTab("Pesan");
+  }, [location.pathname]);
+  useEffect(() => {
+    function notif(label, value) {
+      setNotifikasi((prevData) => ({
+        ...prevData,
+        [label]: value.length,
+      }));
+    }
+    socket.on("cekuser", (arg, callback) => {
+      const rr = {
+        id: `{"id":"${user.id}","read":"false"}`,
+        userid: user.id,
+      };
+      callback(rr);
+    });
+    socket.on(`notifikasimeeting${user.id}`, (value) => {
+      notif("meeting", value);
+    });
+
+    socket.on(`notifikasiprojek${user.id}`, (value) => {
+      notif("project", value);
+    });
+    socket.on(`notifikasipesan${user.id}`, (value) => {
+      notif("pesan", value);
+    });
+    return () => {
+      socket.off("notifikasipesan", notif);
+      socket.off("notifikasimeeting", notif);
+      socket.off("notifikasiprojek", notif);
+    };
+  }, []);
   return (
     <>
-      {/* Navbar */}
-      <nav className="main-header navbar navbar-expand navbar-green navbar-light">
-        {/* Left navbar links */}
-        <ul className="navbar-nav">
-          <li className="nav-item">
-            <Link className="nav-link" data-widget="pushmenu" href="#" role="button"><i className="fas fa-bars" /></Link>
+      <nav className='main-header navbar navbar-expand navbar-green navbar-light'>
+        <ul className='navbar-nav'>
+          <li className='nav-item'>
+            <Link
+              className='nav-link'
+              data-widget='pushmenu'
+              href='#'
+              role='button'>
+              <i className='fas fa-bars' />
+            </Link>
           </li>
-          {menuData.map((menuItem,idx) => (
-            <li   key={idx} className="nav-item d-none d-sm-inline-block">
-            <Link to={menuItem.to} className="nav-link"
-            
-            >{menuItem.title}</Link>
-            
+        </ul>
+        <ul className='navbar-nav ml-auto'>
+          {menuData.map((menuItem, idx) => (
+            <li key={idx} className='nav-item d-none d-sm-inline-block'>
+              <Link
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActiveTab(menuItem.title);
+                  navigate(menuItem.to);
+                }}
+                style={{
+                  color: activeTab === menuItem.title ? "#D9E021" : "#ffffff",
+                }}
+                className='nav-link'>
+                {menuItem.title}
+                {notifikasi[menuItem.notif] !== 0 && (
+                  <span className='badge badge-danger navbar-badge'>
+                    {notifikasi[menuItem.notif]}
+                  </span>
+                )}
+              </Link>
             </li>
           ))}
-
-        </ul>
-        {/* Right navbar links */}
-        <ul className="navbar-nav ml-auto">
-          {/* Messages Dropdown Menu */}
-          <li className="nav-item dropdown">
-            <a className="nav-link" data-toggle="dropdown" href="#">
-              <i className="far fa-comments" />
-              <span className="badge badge-danger navbar-badge">3</span>
+          <li className='nav-item d-none d-sm-inline-block'>
+            <Link
+              to=''
+              onClick={(event) => onLogout(event)}
+              className='nav-link '>
+              <i className='nav-icon fas fa-sign-out-alt' />
+            </Link>
+          </li>
+          <li className='navbar-item dropdown navbar-expand d-md-none d-lg-none d-xl-none ml-auto'>
+            <a
+              className='nav-link '
+              href='#'
+              id='navbarDropdown'
+              role='button'
+              data-toggle='dropdown'
+              aria-haspopup='true'
+              aria-expanded='false'>
+              <i className='fas fa-ellipsis-v' />
             </a>
-            <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <a href="#" className="dropdown-item">
-                {/* Message Start */}
-                <div className="media">
-                  <img src="dist/img/user1-128x128.jpg" alt="User Avatar" className="img-size-50 mr-3 img-circle" />
-                  <div className="media-body">
-                    <h3 className="dropdown-item-title">
-                      Brad Diesel
-                      <span className="float-right text-sm text-danger"><i className="fas fa-star" /></span>
-                    </h3>
-                    <p className="text-sm">Call me whenever you can...</p>
-                    <p className="text-sm text-muted"><i className="far fa-clock mr-1" /> 4 Hours Ago</p>
-                  </div>
-                </div>
-                {/* Message End */}
-              </a>
-              <div className="dropdown-divider" />
-              <a href="#" className="dropdown-item">
-                {/* Message Start */}
-                <div className="media">
-                  <img src="dist/img/user8-128x128.jpg" alt="User Avatar" className="img-size-50 img-circle mr-3" />
-                  <div className="media-body">
-                    <h3 className="dropdown-item-title">
-                      John Pierce
-                      <span className="float-right text-sm text-muted"><i className="fas fa-star" /></span>
-                    </h3>
-                    <p className="text-sm">I got your message bro</p>
-                    <p className="text-sm text-muted"><i className="far fa-clock mr-1" /> 4 Hours Ago</p>
-                  </div>
-                </div>
-                {/* Message End */}
-              </a>
-              <div className="dropdown-divider" />
-              <a href="#" className="dropdown-item">
-                {/* Message Start */}
-                <div className="media">
-                  <img src="dist/img/user3-128x128.jpg" alt="User Avatar" className="img-size-50 img-circle mr-3" />
-                  <div className="media-body">
-                    <h3 className="dropdown-item-title">
-                      Nora Silvester
-                      <span className="float-right text-sm text-warning"><i className="fas fa-star" /></span>
-                    </h3>
-                    <p className="text-sm">The subject goes here</p>
-                    <p className="text-sm text-muted"><i className="far fa-clock mr-1" /> 4 Hours Ago</p>
-                  </div>
-                </div>
-                {/* Message End */}
-              </a>
-              <div className="dropdown-divider" />
-              <a href="#" className="dropdown-item dropdown-footer">See All Messages</a>
+            <div
+              className='dropdown-menu dropdown-menu-lg dropdown-menu-right'
+              aria-labelledby='navbarDropdown'>
+              {menuData.map((menuItem, idx) => (
+                <Link
+                  key={idx}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab(menuItem.title);
+                    navigate(menuItem.to);
+                  }}
+                  style={{
+                    color: activeTab === menuItem.title ? "#D9E021" : "#619A3F",
+                  }}
+                  className='nav-link dropdown-item'>
+                  {menuItem.title}
+                  {notifikasi[menuItem.notif] !== 0 && (
+                    <span className='badge badge-danger navbar-badge'>
+                      {notifikasi[menuItem.notif]}
+                    </span>
+                  )}
+                </Link>
+              ))}
             </div>
           </li>
-          {/* Notifications Dropdown Menu */}
-          <li className="nav-item dropdown">
-            <a className="nav-link" data-toggle="dropdown" href="#">
-              <i className="far fa-bell" />
-              <span className="badge badge-warning navbar-badge">15</span>
-            </a>
-            <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <span className="dropdown-item dropdown-header">15 Notifications</span>
-              <div className="dropdown-divider" />
-              <a href="#" className="dropdown-item">
-                <i className="fas fa-envelope mr-2" /> 4 new messages
-                <span className="float-right text-muted text-sm">3 mins</span>
-              </a>
-              <div className="dropdown-divider" />
-              <a href="#" className="dropdown-item">
-                <i className="fas fa-users mr-2" /> 8 friend requests
-                <span className="float-right text-muted text-sm">12 hours</span>
-              </a>
-              <div className="dropdown-divider" />
-              <a href="#" className="dropdown-item">
-                <i className="fas fa-file mr-2" /> 3 new reports
-                <span className="float-right text-muted text-sm">2 days</span>
-              </a>
-              <div className="dropdown-divider" />
-              <a href="#" className="dropdown-item dropdown-footer">See All Notifications</a>
-            </div>
-          </li>
-
         </ul>
       </nav>
-      {/* /.navbar */}
-
-
     </>
   );
 }
 
-export default Header
+export default Header;
